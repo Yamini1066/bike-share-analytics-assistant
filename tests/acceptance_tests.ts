@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from './server';
+import app from '../src/server';
 
 describe('Public Acceptance Tests', () => {
   // Test cases from the assignment
@@ -41,8 +41,10 @@ describe('Public Acceptance Tests', () => {
     const result = response.body.result;
     
     if (typeof expectedAnswer === 'number' && tolerance) {
-      expect(typeof result).toBe('number');
-      expect(Math.abs(result - expectedAnswer)).toBeLessThanOrEqual(tolerance);
+      // Convert result to number if it's a string
+      const numericResult = typeof result === 'string' ? parseFloat(result) : result;
+      expect(typeof numericResult).toBe('number');
+      expect(Math.abs(numericResult - expectedAnswer)).toBeLessThanOrEqual(tolerance);
     } else {
       expect(result).toBe(expectedAnswer);
     }

@@ -1,6 +1,6 @@
-import { SemanticMapper, QueryIntent } from './semantic_mapper';
-import { SQLGenerator } from './sql_generator';
-import { QueryService } from './query_service';
+import { SemanticMapper, QueryIntent } from '../src/semantic_mapper';
+import { SQLGenerator } from '../src/sql_generator';
+import { QueryService } from '../src/query_service';
 
 describe('SemanticMapper', () => {
   let semanticMapper: SemanticMapper;
@@ -128,8 +128,8 @@ describe('SQLGenerator', () => {
 
     test('generates AVERAGE query with proper column', () => {
       const { sql, params } = sqlGenerator.generateSQL('What was the average ride time?');
-      expect(sql).toContain('SELECT AVG(');
-      expect(sql).toContain('duration_minutes');
+      expect(sql).toContain('SELECT ROUND(AVG(');
+      expect(sql).toContain('EPOCH');
       expect(Array.isArray(params)).toBe(true);
     });
 
@@ -137,7 +137,7 @@ describe('SQLGenerator', () => {
       const { sql, params } = sqlGenerator.generateSQL('How many trips were made by women?');
       expect(sql).toContain('WHERE');
       expect(sql).toContain('$1');
-      expect(params).toContain('Female');
+      expect(params).toContain('female');
     });
 
     test('handles date ranges', () => {

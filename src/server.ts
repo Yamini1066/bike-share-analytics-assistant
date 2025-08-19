@@ -83,7 +83,7 @@ app.post('/query', async (req, res) => {
 
 // Serve the chat UI
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'premium_ui.html'));
+	res.sendFile(path.join(__dirname, '../src/premium_ui.html'));
 });
 
 // 404 handler
